@@ -174,7 +174,7 @@ export default function Hero() {
                 <div className="relative w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden border border-gray-700/50">
                   {/* Replace with your actual image */}
                   <Image
-                    src="/images/.jpg"
+                    src="/images/gallery-6.jpg"
                     alt="Tyler Quach"
                     fill
                     className="object-cover"

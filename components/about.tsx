@@ -48,7 +48,70 @@ const imageGallery = [
     description: 'OSU vs UNLV at Reser Stadium, Fall 2024',
     size: 'medium',
 
-  },
+    },
+    {
+    id: 6,
+    image: '/images/gallery-7.jpg',
+    placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+    caption: 'Early Morning at the Gym',
+    description: 'Post-gym sunrise picture',
+    size: 'small',
+
+    },
+    {
+        id: 7,
+        image: '/images/gallery-8.jpg',
+        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+        caption: 'Portland Trailblazer Game🏀',
+        description: 'Got to shoot a freethrow on my favorite NBA Court',
+        size: 'small',
+    
+    },
+    {
+        id: 8,
+        image: '/images/gallery-9.heic',
+        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+        caption: 'First Marathon 🏅',
+        description: 'Ran the 50th Anniversary Portland Marathon',
+        size: 'large',
+    
+    },
+    {
+        id: 9,
+        image: '/images/gallery-10.jpg',
+        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+        caption: 'Swim Meet in Arizona 🏊‍♂️',
+        description: 'Travel meet with my club swim team',
+        size: 'small',
+    
+    },
+    {
+        id: 10,
+        image: '/images/gallery-12.jpg',
+        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+        caption: 'Lake Day in Montana',
+        description: 'Swimming in a lake in Montana during summer 2023',
+        size: 'small',
+    
+    },
+    {
+        id: 11,
+        image: '/images/gallery-11.heic',
+        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+        caption: 'Zion National Park',
+        description: 'Hiking in Zion, May 2022',
+        size: 'small',
+    
+    },
+    {
+        id: 12,
+        image: '/images/gallery-14.jpg',
+        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+        caption: 'Running in Philly',
+        description: '6 mile run in Philadelphia. Also ran across the Benjamin Franklin Bridge',
+        size: 'small',
+    
+    },
 ]
 
 export default function About() {
@@ -143,18 +206,15 @@ export default function About() {
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 animate-glow">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center text-white">
-                      <div className="text-8xl mb-4">👤</div>
-                      <p className="text-sm opacity-80">Your Photo</p>
                     </div>
                   </div>
                 </div>
-                {/* Add your image here */}
-                {/* <Image
-                  src="/images/hero-about.jpg"
+                <Image
+                  src="/images/gallery-16.jpg"
                   alt="Tyler"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                /> */}
+                />
               </div>
   
               {/* Right - Text */}
@@ -166,13 +226,12 @@ export default function About() {
                   <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-glow"></div>
                 </div>
                 <p className="text-xl sm:text-2xl text-gray-300 leading-relaxed">
-                  I'm a Computer Science student at Stanford University, passionate about building
-                  innovative applications with Apple technologies.
+                  I'm a Computer Science student at Oregon State University, passionate about building
+                  innovative applications. Interested in working in Full Stack Development and Machine Learning.
                 </p>
                 <p className="text-lg text-gray-400 leading-relaxed">
                   My journey in tech has been driven by curiosity and a desire to create solutions
-                  that make a difference. I specialize in iOS and macOS development, combining
-                  technical expertise with thoughtful design.
+                  that make a difference. Aside from tech I love weightlifitng, running, swimming and cooking/eating. Although my favorite thing to do is travel and explore new places and cultures. My biggest goal is to travel to all 195 countries. 
                 </p>
               </div>
             </div>
