@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react';
 
-
+// --- DATA ---
 const imageGallery = [
   {
     id: 1,
@@ -20,7 +20,6 @@ const imageGallery = [
     caption: 'Yosemite National Park',
     description: 'Exploring Yosemite. Summer 2025',
     size: 'small',
-
   },
   {
     id: 3,
@@ -29,7 +28,6 @@ const imageGallery = [
     caption: 'SHPE 2025',
     description: 'Career Fair @ Society of Hispanic Professional Engineers Conference in Philadelphia',
     size: 'small',
-
   },
   {
     id: 4,
@@ -38,7 +36,6 @@ const imageGallery = [
     caption: 'Morning in Hanoi 🇻🇳',
     description: 'One of my many stops in Vietnam in 2023',
     size: 'medium',
-
   },
   {
     id: 5,
@@ -47,78 +44,140 @@ const imageGallery = [
     caption: 'Football Game 🏈',
     description: 'OSU vs UNLV at Reser Stadium, Fall 2024',
     size: 'medium',
-
-    },
-    {
+  },
+  {
     id: 6,
     image: '/images/gallery-7.jpg',
     placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
     caption: 'Early Morning at the Gym',
     description: 'Post-gym sunrise picture',
     size: 'small',
-
-    },
-    {
-        id: 7,
-        image: '/images/gallery-8.jpg',
-        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
-        caption: 'Portland Trailblazer Game🏀',
-        description: 'Got to shoot a freethrow on my favorite NBA Court',
-        size: 'small',
-    
-    },
-    {
-        id: 8,
-        image: '/images/gallery-9.heic',
-        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
-        caption: 'First Marathon 🏅',
-        description: 'Ran the 50th Anniversary Portland Marathon',
-        size: 'large',
-    
-    },
-    {
-        id: 9,
-        image: '/images/gallery-10.jpg',
-        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
-        caption: 'Swim Meet in Arizona 🏊‍♂️',
-        description: 'Travel meet with my club swim team',
-        size: 'small',
-    
-    },
-    {
-        id: 10,
-        image: '/images/gallery-12.jpg',
-        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
-        caption: 'Lake Day in Montana',
-        description: 'Swimming in a lake in Montana during summer 2023',
-        size: 'small',
-    
-    },
-    {
-        id: 11,
-        image: '/images/gallery-11.heic',
-        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
-        caption: 'Zion National Park',
-        description: 'Hiking in Zion, May 2022',
-        size: 'small',
-    
-    },
-    {
-        id: 12,
-        image: '/images/gallery-14.jpg',
-        placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
-        caption: 'Running in Philly',
-        description: '6 mile run in Philadelphia. Also ran across the Benjamin Franklin Bridge',
-        size: 'small',
-    
-    },
+  },
+  {
+    id: 7,
+    image: '/images/gallery-8.jpg',
+    placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+    caption: 'Portland Trailblazer Game🏀',
+    description: 'Got to shoot a freethrow on my favorite NBA Court',
+    size: 'small',
+  },
+  {
+    id: 8,
+    image: '/images/gallery-10.jpg',
+    placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+    caption: 'Swim Meet in Arizona 🏊‍♂️',
+    description: 'Travel meet with my club swim team',
+    size: 'small',
+  },
+  {
+    id: 10,
+    image: '/images/gallery-12.jpg',
+    placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+    caption: 'Lake Day in Montana',
+    description: 'Swimming in a lake in Montana during summer 2023',
+    size: 'small',
+  },
+  {
+    id: 11,
+    image: '/images/gallery-14.jpg',
+    placeholder: 'bg-gradient-to-br from-green-400 to-teal-500',
+    caption: 'Running in Philly',
+    description: '6 mile run in Philadelphia. Also ran across the Benjamin Franklin Bridge',
+    size: 'small',
+  },
 ]
+
+// --- HELPER COMPONENTS ---
+
+// 1. Single Image Card Component
+const GalleryCard = ({ item, hoveredGallery, setHoveredGallery, extraClasses = "" }: any) => {
+  return (
+    <div
+      className={`relative aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale ${extraClasses}`}
+      onMouseEnter={() => setHoveredGallery(item.id)}
+      onMouseLeave={() => setHoveredGallery(null)}
+    >
+      <div className="absolute inset-0">
+        <Image
+          src={item.image}
+          alt={item.caption}
+          fill
+          className={`object-cover transition-all duration-500 ${
+            hoveredGallery === item.id ? 'scale-110' : ''
+          }`}
+          sizes="(max-width: 768px) 100vw, 400px"
+        />
+        <div
+          className={`absolute inset-0 ${item.placeholder} transition-all duration-500 ${
+            hoveredGallery === item.id ? 'scale-110 opacity-0' : 'opacity-0'
+          }`}
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-4xl opacity-50">📸</div>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
+          hoveredGallery === item.id
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4'
+        }`}
+      >
+        <div className="text-center px-4">
+          <span className="text-white font-semibold text-lg md:text-xl block mb-2">
+            {item.caption}
+          </span>
+          <p className="text-white/80 text-sm md:text-base">
+            {item.description || 'Click to learn more'}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 2. Group Component (Handles Stacked vs Single logic)
+const GalleryGroup = ({ group, hoveredGallery, setHoveredGallery }: any) => {
+  if (group.type === 'stacked') {
+    const [item1, item2] = group.items
+    return (
+      <div className="flex-shrink-0 w-[200px] sm:w-[250px] md:w-[300px] flex flex-col gap-4">
+        <GalleryCard item={item1} hoveredGallery={hoveredGallery} setHoveredGallery={setHoveredGallery} />
+        <GalleryCard item={item2} hoveredGallery={hoveredGallery} setHoveredGallery={setHoveredGallery} />
+      </div>
+    )
+  } else {
+    // Single Item
+    const item = group.items[0]
+    const sizeClasses = {
+      large: 'w-full md:w-[600px]',
+      medium: 'w-[250px] sm:w-[300px] md:w-[400px]',
+      small: 'w-[200px] sm:w-[250px] md:w-[300px]',
+    }
+    const widthClass = sizeClasses[item.size as keyof typeof sizeClasses] || sizeClasses.medium;
+
+    return (
+      <GalleryCard 
+        item={item} 
+        hoveredGallery={hoveredGallery} 
+        setHoveredGallery={setHoveredGallery} 
+        extraClasses={`flex-shrink-0 ${widthClass}`} 
+      />
+    )
+  }
+}
+
+// --- MAIN COMPONENT ---
 
 export default function About() {
     const [hoveredGallery, setHoveredGallery] = useState<number | null>(null)
     const carouselRef = useRef<HTMLDivElement>(null)
+    
+    // We use a ref to track scroll position to avoid reading from DOM every frame (which causes jitter)
+    const scrollPosRef = useRef(1.5);
   
-    // Group consecutive small images in pairs for stacking
+    // Group consecutive small images
     const groupGalleryItems = (items: typeof imageGallery) => {
       const grouped: Array<{ type: 'single' | 'stacked'; items: typeof imageGallery }> = []
       let i = 0
@@ -126,89 +185,77 @@ export default function About() {
       while (i < items.length) {
         const current = items[i]
         if (current.size === 'small' && i + 1 < items.length && items[i + 1].size === 'small') {
-          // Pair two small images
           grouped.push({ type: 'stacked', items: [current, items[i + 1]] })
           i += 2
         } else {
-          // Single item (large, medium, or orphaned small)
           grouped.push({ type: 'single', items: [current] })
           i += 1
         }
       }
-      
       return grouped
     }
   
     const groupedGallery = groupGalleryItems(imageGallery)
   
     useEffect(() => {
-      if (!carouselRef.current) return
+      const container = carouselRef.current
+      if (!container) return
   
-      const scrollSpeed = 0.8 // Auto scroll speed (pixels per frame)
+      const scrollSpeed = 1.5 
       let animationFrameId: number
       let isPaused = false
   
       const scroll = () => {
-        if (carouselRef.current && !isPaused) {
-          const container = carouselRef.current
-          const itemWidth = container.scrollWidth / 2 // Half because we duplicate items
-          let newScroll = container.scrollLeft + scrollSpeed
-  
-          // Seamlessly loop back when reaching halfway (end of original items)
-          if (newScroll >= itemWidth) {
-            newScroll = newScroll - itemWidth
-          }
-  
-          container.scrollLeft = newScroll
+        if (!isPaused && container) {
+            // Update the Ref (Virtual Position)
+            scrollPosRef.current += scrollSpeed;
+            
+            const maxScroll = container.scrollWidth / 2;
+
+            // Check if we have scrolled past the first set of items
+            if (scrollPosRef.current >= maxScroll) {
+                // Reset to 0 (seamless loop)
+                scrollPosRef.current = 0; // Or (scrollPosRef.current - maxScroll) for perfect precision
+            }
+
+            // Apply to DOM
+            container.scrollLeft = scrollPosRef.current;
         }
         animationFrameId = requestAnimationFrame(scroll)
       }
   
-      // Handle pause on hover
-      const handleMouseEnter = () => {
-        isPaused = true
-      }
-      const handleMouseLeave = () => {
-        isPaused = false
-      }
+      const handleMouseEnter = () => { isPaused = true }
+      const handleMouseLeave = () => { isPaused = false }
   
-      if (carouselRef.current) {
-        carouselRef.current.addEventListener('mouseenter', handleMouseEnter)
-        carouselRef.current.addEventListener('mouseleave', handleMouseLeave)
-      }
+      container.addEventListener('mouseenter', handleMouseEnter)
+      container.addEventListener('mouseleave', handleMouseLeave)
   
+      // Initialize scroll position from DOM in case of re-renders
+      scrollPosRef.current = container.scrollLeft;
+      
       animationFrameId = requestAnimationFrame(scroll)
   
       return () => {
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId)
-        }
-        if (carouselRef.current) {
-          carouselRef.current.removeEventListener('mouseenter', handleMouseEnter)
-          carouselRef.current.removeEventListener('mouseleave', handleMouseLeave)
-        }
+        cancelAnimationFrame(animationFrameId)
+        container.removeEventListener('mouseenter', handleMouseEnter)
+        container.removeEventListener('mouseleave', handleMouseLeave)
       }
-    }, [])
+    }, [groupedGallery]) // Re-run if gallery changes
   
     return (
       <section id="about" className="relative min-h-screen bg-[#1a1a1a] py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
-        {/* Creative background elements */}
+        {/* Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-orange-500/5 rounded-full blur-3xl"></div>
         </div>
+        
         <div className="container mx-auto max-w-7xl relative z-10">
           {/* Hero Section */}
           <div className="mb-16 sm:mb-20 lg:mb-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Left - Image */}
               <div className="relative aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden group hover-scale">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 animate-glow">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center text-white">
-                    </div>
-                  </div>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 animate-glow"></div>
                 <Image
                   src="/images/gallery-16.jpg"
                   alt="Tyler"
@@ -217,7 +264,6 @@ export default function About() {
                 />
               </div>
   
-              {/* Right - Text */}
               <div className="space-y-6">
                 <div>
                   <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4">
@@ -252,311 +298,25 @@ export default function About() {
                   msOverflowStyle: 'none',
                 }}
               >
-                {groupedGallery.map((group, groupIndex) => {
-                  if (group.type === 'stacked') {
-                    // Render two small images stacked vertically
-                    const [item1, item2] = group.items
-                    return (
-                      <div
-                        key={`stacked-${item1.id}-${item2.id}`}
-                        className="flex-shrink-0 w-[200px] sm:w-[250px] md:w-[300px] flex flex-col gap-4"
-                      >
-                        {/* Top image */}
-                        <div
-                          className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale"
-                          onMouseEnter={() => setHoveredGallery(item1.id)}
-                          onMouseLeave={() => setHoveredGallery(null)}
-                        >
-                          <div className="absolute inset-0">
-                            <Image
-                              src={item1.image}
-                              alt={item1.caption}
-                              fill
-                              className={`object-cover transition-all duration-500 ${
-                                hoveredGallery === item1.id ? 'scale-110' : ''
-                              }`}
-                              sizes="(max-width: 768px) 100vw, 300px"
-                            />
-                            <div
-                              className={`absolute inset-0 ${item1.placeholder} transition-all duration-500 ${
-                                hoveredGallery === item1.id ? 'scale-110 opacity-0' : 'opacity-0'
-                              }`}
-                            >
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-4xl opacity-50">📸</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
-                              hoveredGallery === item1.id
-                                ? 'opacity-100 translate-y-0'
-                                : 'opacity-0 translate-y-4'
-                            }`}
-                          >
-                            <div className="text-center px-4">
-                              <span className="text-white font-semibold text-lg md:text-xl block mb-2">
-                                {item1.caption}
-                              </span>
-                              <p className="text-white/80 text-sm md:text-base">
-                                {item1.description || 'Click to learn more'}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        {/* Bottom image */}
-                        <div
-                          className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale"
-                          onMouseEnter={() => setHoveredGallery(item2.id)}
-                          onMouseLeave={() => setHoveredGallery(null)}
-                        >
-                          <div className="absolute inset-0">
-                            <Image
-                              src={item2.image}
-                              alt={item2.caption}
-                              fill
-                              className={`object-cover transition-all duration-500 ${
-                                hoveredGallery === item2.id ? 'scale-110' : ''
-                              }`}
-                              sizes="(max-width: 768px) 100vw, 300px"
-                            />
-                            <div
-                              className={`absolute inset-0 ${item2.placeholder} transition-all duration-500 ${
-                                hoveredGallery === item2.id ? 'scale-110 opacity-0' : 'opacity-0'
-                              }`}
-                            >
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-4xl opacity-50">📸</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
-                              hoveredGallery === item2.id
-                                ? 'opacity-100 translate-y-0'
-                                : 'opacity-0 translate-y-4'
-                            }`}
-                          >
-                            <div className="text-center px-4">
-                              <span className="text-white font-semibold text-lg md:text-xl block mb-2">
-                                {item2.caption}
-                              </span>
-                              <p className="text-white/80 text-sm md:text-base">
-                                {item2.description || 'Click to learn more'}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  } else {
-                    // Render single item (large or medium)
-                    const item = group.items[0]
-                    const sizeClasses = {
-                      large: 'w-full md:w-[600px]',
-                      medium: 'w-[250px] sm:w-[300px] md:w-[400px]',
-                      small: 'w-[200px] sm:w-[250px] md:w-[300px]',
-                    }
-                    return (
-                      <div
-                        key={item.id}
-                        className={`relative flex-shrink-0 aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale ${sizeClasses[item.size as keyof typeof sizeClasses]}`}
-                        onMouseEnter={() => setHoveredGallery(item.id)}
-                        onMouseLeave={() => setHoveredGallery(null)}
-                      >
-                        <div className="absolute inset-0">
-                          <Image
-                            src={item.image}
-                            alt={item.caption}
-                            fill
-                            className={`object-cover transition-all duration-500 ${
-                              hoveredGallery === item.id ? 'scale-110' : ''
-                            }`}
-                            sizes="(max-width: 768px) 100vw, 400px"
-                          />
-                          <div
-                            className={`absolute inset-0 ${item.placeholder} transition-all duration-500 ${
-                              hoveredGallery === item.id ? 'scale-110 opacity-0' : 'opacity-0'
-                            }`}
-                          >
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="text-4xl opacity-50">📸</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
-                            hoveredGallery === item.id
-                              ? 'opacity-100 translate-y-0'
-                              : 'opacity-0 translate-y-4'
-                          }`}
-                        >
-                          <div className="text-center px-4">
-                            <span className="text-white font-semibold text-lg md:text-xl block mb-2">
-                              {item.caption}
-                            </span>
-                            <p className="text-white/80 text-sm md:text-base">
-                              {item.description || 'Click to learn more'}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-                })}
-                {/* Duplicate items for seamless loop */}
-                {groupedGallery.map((group, groupIndex) => {
-                  if (group.type === 'stacked') {
-                    // Render two small images stacked vertically
-                    const [item1, item2] = group.items
-                    return (
-                      <div
-                        key={`duplicate-stacked-${item1.id}-${item2.id}`}
-                        className="flex-shrink-0 w-[200px] sm:w-[250px] md:w-[300px] flex flex-col gap-4"
-                      >
-                        {/* Top image */}
-                        <div
-                          className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale"
-                          onMouseEnter={() => setHoveredGallery(item1.id)}
-                          onMouseLeave={() => setHoveredGallery(null)}
-                        >
-                          <div className="absolute inset-0">
-                            <Image
-                              src={item1.image}
-                              alt={item1.caption}
-                              fill
-                              className={`object-cover transition-all duration-500 ${
-                                hoveredGallery === item1.id ? 'scale-110' : ''
-                              }`}
-                              sizes="(max-width: 768px) 100vw, 300px"
-                            />
-                            <div
-                              className={`absolute inset-0 ${item1.placeholder} transition-all duration-500 ${
-                                hoveredGallery === item1.id ? 'scale-110 opacity-0' : 'opacity-0'
-                              }`}
-                            >
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-4xl opacity-50">📸</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
-                              hoveredGallery === item1.id
-                                ? 'opacity-100 translate-y-0'
-                                : 'opacity-0 translate-y-4'
-                            }`}
-                          >
-                            <div className="text-center px-4">
-                              <span className="text-white font-semibold text-lg md:text-xl block mb-2">
-                                {item1.caption}
-                              </span>
-                              <p className="text-white/80 text-sm md:text-base">
-                                {item1.description || 'Click to learn more'}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        {/* Bottom image */}
-                        <div
-                          className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale"
-                          onMouseEnter={() => setHoveredGallery(item2.id)}
-                          onMouseLeave={() => setHoveredGallery(null)}
-                        >
-                          <div className="absolute inset-0">
-                            <Image
-                              src={item2.image}
-                              alt={item2.caption}
-                              fill
-                              className={`object-cover transition-all duration-500 ${
-                                hoveredGallery === item2.id ? 'scale-110' : ''
-                              }`}
-                              sizes="(max-width: 768px) 100vw, 300px"
-                            />
-                            <div
-                              className={`absolute inset-0 ${item2.placeholder} transition-all duration-500 ${
-                                hoveredGallery === item2.id ? 'scale-110 opacity-0' : 'opacity-0'
-                              }`}
-                            >
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-4xl opacity-50">📸</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
-                              hoveredGallery === item2.id
-                                ? 'opacity-100 translate-y-0'
-                                : 'opacity-0 translate-y-4'
-                            }`}
-                          >
-                            <div className="text-center px-4">
-                              <span className="text-white font-semibold text-lg md:text-xl block mb-2">
-                                {item2.caption}
-                              </span>
-                              <p className="text-white/80 text-sm md:text-base">
-                                {item2.description || 'Click to learn more'}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  } else {
-                    // Render single item (large or medium)
-                    const item = group.items[0]
-                    const sizeClasses = {
-                      large: 'w-full md:w-[600px]',
-                      medium: 'w-[250px] sm:w-[300px] md:w-[400px]',
-                      small: 'w-[200px] sm:w-[250px] md:w-[300px]',
-                    }
-                    return (
-                      <div
-                        key={`duplicate-${item.id}`}
-                        className={`relative flex-shrink-0 aspect-square rounded-2xl overflow-hidden group cursor-pointer hover-scale ${sizeClasses[item.size as keyof typeof sizeClasses]}`}
-                        onMouseEnter={() => setHoveredGallery(item.id)}
-                        onMouseLeave={() => setHoveredGallery(null)}
-                      >
-                        <div className="absolute inset-0">
-                          <Image
-                            src={item.image}
-                            alt={item.caption}
-                            fill
-                            className={`object-cover transition-all duration-500 ${
-                              hoveredGallery === item.id ? 'scale-110' : ''
-                            }`}
-                            sizes="(max-width: 768px) 100vw, 400px"
-                          />
-                          <div
-                            className={`absolute inset-0 ${item.placeholder} transition-all duration-500 ${
-                              hoveredGallery === item.id ? 'scale-110 opacity-0' : 'opacity-0'
-                            }`}
-                          >
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="text-4xl opacity-50">📸</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className={`absolute inset-0 bg-black/70 flex items-center justify-center transition-all duration-300 ${
-                            hoveredGallery === item.id
-                              ? 'opacity-100 translate-y-0'
-                              : 'opacity-0 translate-y-4'
-                          }`}
-                        >
-                          <div className="text-center px-4">
-                            <span className="text-white font-semibold text-lg md:text-xl block mb-2">
-                              {item.caption}
-                            </span>
-                            <p className="text-white/80 text-sm md:text-base">
-                              {item.description || 'Click to learn more'}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-                })}
+                {/* ORIGINAL ITEMS */}
+                {groupedGallery.map((group, i) => (
+                  <GalleryGroup 
+                    key={`orig-${i}`} 
+                    group={group} 
+                    hoveredGallery={hoveredGallery} 
+                    setHoveredGallery={setHoveredGallery} 
+                  />
+                ))}
+                
+                {/* DUPLICATE ITEMS (For Infinite Scroll) */}
+                {groupedGallery.map((group, i) => (
+                  <GalleryGroup 
+                    key={`dup-${i}`} 
+                    group={group} 
+                    hoveredGallery={hoveredGallery} 
+                    setHoveredGallery={setHoveredGallery} 
+                  />
+                ))}
               </div>
   
               {/* Fade edges */}
@@ -567,5 +327,4 @@ export default function About() {
         </div>
       </section>
     )
-  }
-  
+}

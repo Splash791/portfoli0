@@ -101,6 +101,22 @@ export default function Hero() {
                       Experience
                     </button>
                   </li>
+                  <li>
+                    <button
+                      onClick={() => scrollToSection('leadership')}
+                      className="text-white hover:bg-white/10 hover:text-orange-500 font-medium text-base transition-colors w-full text-left px-4 py-3"
+                    >
+                      Leadership
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => scrollToSection('contact')}
+                      className="text-white hover:bg-white/10 hover:text-orange-500 font-medium text-base transition-colors w-full text-left px-4 py-3"
+                    >
+                      Contact
+                    </button>
+                  </li>
                 </ul>
               </nav>
             </>
